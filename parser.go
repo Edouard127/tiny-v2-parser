@@ -102,8 +102,6 @@ func (p *Parser) parseHeader(tok Token) error {
 
 		p.metadata.Properties[tok.Parts[1]] = value
 	}
-
-	return nil
 }
 
 func (p *Parser) parseBody(tok Token) {
