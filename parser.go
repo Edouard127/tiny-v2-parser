@@ -97,7 +97,7 @@ func (p *Parser) parseHeader(tok Token) error {
 
 		var value string
 		if len(tok.Parts) >= 3 {
-			value = strings.Join(tok.Parts[2:], "\t")
+			value = strings.Join(tok.Parts[2:], Separator)
 		}
 
 		p.metadata.Properties[tok.Parts[1]] = value
@@ -260,15 +260,15 @@ func (p *Parser) handleComment() {
 		if p.stack[i].indent == p.currentTok.Indent-1 {
 			switch elem := p.stack[i].element.(type) {
 			case *Class:
-				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, "\t"))
+				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, Separator))
 			case *Field:
-				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, "\t"))
+				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, Separator))
 			case *Method:
-				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, "\t"))
+				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, Separator))
 			case *Parameter:
-				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, "\t"))
+				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, Separator))
 			case *LocalVariable:
-				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, "\t"))
+				elem.Comments = append(elem.Comments, strings.Join(p.currentTok.Parts, Separator))
 			}
 			return
 		}
@@ -276,7 +276,7 @@ func (p *Parser) handleComment() {
 
 	// Global comment
 	p.metadata.GlobalComments = append(p.metadata.GlobalComments,
-		fmt.Sprintf("L%d: %s", p.currentTok.Line, strings.Join(p.currentTok.Parts, "\t")))
+		fmt.Sprintf("L%d: %s", p.currentTok.Line, strings.Join(p.currentTok.Parts, Separator)))
 }
 
 func (p *Parser) parseNames(parts []string) []string {
